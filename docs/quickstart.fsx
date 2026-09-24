@@ -4,7 +4,7 @@
 #r "DiffSharp.Data.dll"
 #r "DiffSharp.Backends.Reference.dll"
 #r "DiffSharp.Backends.Torch.dll"
-#r "nuget: SixLabors.ImageSharp,1.0.1" 
+#r "nuget: SixLabors.ImageSharp,2.1.13" 
 // These are needed to make fsdocs --eval work. If we don't select a backend like this in the beginning, we get erratic behavior.
 DiffSharp.dsharp.config(backend=DiffSharp.Backend.Reference)
 DiffSharp.dsharp.seed(123)
@@ -13,7 +13,7 @@ open DiffSharp.Util
 (*** condition: fsx ***)
 #if FSX
 #r "nuget: DiffSharp-lite,{{fsdocs-package-version}}"
-#r "nuget: SixLabors.ImageSharp,1.0.1"
+#r "nuget: SixLabors.ImageSharp,2.1.13"
 #endif // FSX
 (*** condition: ipynb ***)
 #if IPYNB
@@ -24,7 +24,7 @@ open DiffSharp.Util
 #if IPYNB
 // Import DiffSharp package
 #r "nuget: DiffSharp-lite,{{fsdocs-package-version}}"
-#r "nuget: SixLabors.ImageSharp,1.0.1"
+#r "nuget: SixLabors.ImageSharp,2.1.13"
 
 // Set dotnet interactive formatter to plaintext
 Formatter.SetPreferredMimeTypesFor(typeof<obj>, "text/plain")
