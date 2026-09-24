@@ -16,13 +16,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet 5.0 (needed for Coveralls)
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 5.0.x
     - name: Setup dotnet 6.0
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.x
     - name: Install dependencies
@@ -60,7 +60,7 @@ jobs:
     - name: Run fsdocs
       run: dotnet fsdocs build --eval --strict --properties Configuration=Release
     - name: Deploy docs
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         deploy_key: ${{ secrets.DIFFSHARP_GITHUB_IO_DEPLOY_DOCS_PRIVATE_KEY }}
         external_repository: DiffSharp/diffsharp.github.io
@@ -74,9 +74,9 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.x
     - name: Install dependencies
@@ -94,9 +94,9 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.x
     - name: Install dependencies
@@ -114,9 +114,9 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.102
     - name: Disable global.json
@@ -136,9 +136,9 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.102
     - name: Disable global.json

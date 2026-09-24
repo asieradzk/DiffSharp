@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
 
 jobs:
   build_linux:
@@ -11,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.x
     - name: Install dependencies
@@ -34,9 +35,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.x
     - name: Install dependencies
@@ -51,11 +52,16 @@ jobs:
   build_macos:
 
     runs-on: macos-latest
+    # TorchSharp 0.100.3 resolves libtorch-cpu 2.0.1.1, which ships only
+    # linux-x64, osx-x64 and win-x64 natives. There is no osx-arm64 build at
+    # that version and macos-latest is arm64, so the native library cannot
+    # load. Remove once TorchSharp is upgraded.
+    continue-on-error: true
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.x
     - name: Install dependencies
