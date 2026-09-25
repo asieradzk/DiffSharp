@@ -1,15 +1,15 @@
 #!/usr/bin/env -S dotnet fsi
 
-#I "../tests/DiffSharp.Tests/bin/Debug/net6.0"
+#I "../tests/DiffSharp.Tests/bin/Debug/net10.0"
 #r "DiffSharp.Core.dll"
 #r "DiffSharp.Data.dll"
 #r "DiffSharp.Backends.Torch.dll"
 
 // Libtorch binaries
 // Option A: you can use a platform-specific nuget package
-#r "nuget: TorchSharp-cpu, 0.96.5"
-// #r "nuget: TorchSharp-cuda-linux, 0.96.5"
-// #r "nuget: TorchSharp-cuda-windows, 0.96.5"
+#r "nuget: TorchSharp-cpu, 0.107.0"
+// #r "nuget: TorchSharp-cuda-linux, 0.107.0"
+// #r "nuget: TorchSharp-cuda-windows, 0.107.0"
 // Option B: you can use a local libtorch installation
 // System.Runtime.InteropServices.NativeLibrary.Load("/home/gunes/anaconda3/lib/python3.8/site-packages/torch/lib/libtorch.so")
 

@@ -16,15 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup dotnet 5.0 (needed for Coveralls)
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v7
+    - name: Setup dotnet 10.0
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: 5.0.x
-    - name: Setup dotnet 6.0
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
+        dotnet-version: 10.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Install tool dependencies
@@ -36,31 +32,11 @@ jobs:
     - name: Build (Debug)
       run: dotnet build --configuration Debug --no-restore --verbosity normal
     - name: Test
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --configuration Release --no-build --verbosity normal
-    - name: Get git commit info
-      run: |
-        echo "GIT_COMMIT_AUTHOR=$(git log -1 --pretty=%cn)" >> $GITHUB_ENV
-        echo "GIT_COMMIT_AUTHOR_EMAIL=$(git log -1 --pretty=%ce)" >> $GITHUB_ENV
-        echo "GIT_COMMIT_MESSAGE=$(git log -1 --pretty=%s)" >> $GITHUB_ENV
-    - name: Run coveralls
-      run: >
-        dotnet csmacnz.Coveralls
-        --opencover -i tests/DiffSharp.Tests/coverage.opencover.xml
-        --useRelativePaths
-        --repoToken ${{ secrets.COVERALLS_REPO_TOKEN }}
-        --commitId ${{ github.sha }}
-        --commitBranch ${{ github.ref }}
-        --commitAuthor "${{ env.GIT_COMMIT_AUTHOR }}"
-        --commitEmail ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
-        --commitMessage "${{ env.GIT_COMMIT_MESSAGE }}"
-        --jobId ${{ github.run_number }}
-    # 16 Apr 2021: disabling codecov due to bash uploader security concern
-    # - name: Codecov
-      # uses: codecov/codecov-action@v1
+      run: dotnet test --configuration Release --no-build --verbosity normal
     - name: Run fsdocs
       run: dotnet fsdocs build --eval --strict --properties Configuration=Release
     - name: Deploy docs
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         deploy_key: ${{ secrets.DIFFSHARP_GITHUB_IO_DEPLOY_DOCS_PRIVATE_KEY }}
         external_repository: DiffSharp/diffsharp.github.io
@@ -74,11 +50,11 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 10.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Pack
@@ -94,11 +70,11 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 10.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Pack (DiffSharp-cuda-windows)
@@ -114,13 +90,11 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: 6.0.102
-    - name: Disable global.json
-      run: mv ./global.json ./global.bak || true
+        dotnet-version: 10.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Pack (DiffSharp-cuda-linux)
@@ -136,13 +110,11 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: 6.0.102
-    - name: Disable global.json
-      run: mv ./global.json ./global.bak || true
+        dotnet-version: 10.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Pack (DiffSharp-cuda)
