@@ -5,7 +5,6 @@
 -----------------------------------------
 
 [![Build Status](https://github.com/DiffSharp/DiffSharp/workflows/Build/test/docs/publish/badge.svg)](https://github.com/DiffSharp/DiffSharp/actions)
-[![Coverage Status](https://coveralls.io/repos/github/DiffSharp/DiffSharp/badge.svg?branch=)](https://coveralls.io/github/DiffSharp/DiffSharp?branch=)
 
 This is the development branch of DiffSharp 1.0.
 

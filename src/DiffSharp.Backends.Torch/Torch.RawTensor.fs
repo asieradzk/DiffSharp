@@ -251,7 +251,7 @@ type TorchRawTensor(tt: torch.Tensor, shape: Shape, dtype: Dtype, device: Device
         | Dtype.Float32 -> t.ToValuesTyped<float32>(fun s -> s.ToSingle())
         | Dtype.Float64 -> t.ToValuesTyped<double>(fun s -> s.ToDouble())
 
-    member private _.ToRawDataViaDirectAccess< 'T when 'T: struct and 'T :> ValueType and 'T : (new : unit -> 'T) >() : 'T[] =
+    member private _.ToRawDataViaDirectAccess< 'T when 'T: struct and 'T: unmanaged and 'T :> ValueType and 'T : (new : unit -> 'T) >() : 'T[] =
         // Torch Tensors must be CPU before raw data can be accessed
         let tt2 = torchMoveTo tt Device.CPU
 
